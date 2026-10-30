@@ -1,0 +1,745 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: #0b1020;
+  color: #f1f5f9;
+}
+
+button {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.game {
+  width: min(100%, 460px);
+  padding: 24px;
+  background: #151c30;
+  border: 1px solid #28334c;
+  border-radius: 20px;
+  box-shadow: 0 24px 80px #0005;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #818cf8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(23px, 5vw, 30px);
+  letter-spacing: -1px;
+}
+
+.restart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  background: #27324b;
+  border: 1px solid #3a4763;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.restart:hover {
+  background: #354361;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 2px 10px;
+  padding: 12px 14px;
+  background: #0e1527;
+  border: 1px solid #25304a;
+  border-radius: 12px;
+}
+
+.stat > span {
+  grid-row: span 2;
+  font-size: 21px;
+}
+
+.stat strong {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat small {
+  color: #8290ab;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  background: #0b1120;
+  border: 1px solid #26334d;
+  border-radius: 12px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid #445477;
+  border-radius: 5px;
+  background: #293754;
+  color: #60a5fa;
+  font-size: clamp(12px, 3.5vw, 17px);
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #1a2740;
+  transition: background 100ms;
+}
+
+.cell:hover:not(.revealed) {
+  background: #3c4e70;
+}
+
+.cell.revealed {
+  background: #1b263c;
+  border-color: #202c43;
+  box-shadow: none;
+  cursor: default;
+}
+
+.game-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+@media (max-width: 420px) {
+  #root {
+    padding: 12px;
+  }
+
+  .game {
+    padding: 14px;
+  }
+
+  .board {
+    gap: 3px;
+    padding: 5px;
+  }
+
+  .cell {
+    border-radius: 3px;
+  }
+}
+
+
+.difficulty {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.level {
+  flex: 1;
+  padding: 9px 6px;
+  color: #aab6ce;
+  background: #0e1527;
+  border: 1px solid #303d58;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: 150ms ease;
+}
+
+.level:hover {
+  background: #25334d;
+  color: #fff;
+}
+
+.level.active {
+  background: #3730a3;
+  border-color: #818cf8;
+  color: #fff;
+}
+
+.board.easy {
+  max-width: 340px;
+  margin-inline: auto;
+}
+
+.board.medium {
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.board.hard {
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.board.hard .cell {
+  font-size: clamp(8px, 2vw, 13px);
+  border-radius: 3px;
+}
+
+@media (max-width: 420px) {
+  .board.hard {
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .board.hard .cell {
+    font-size: 10px;
+  }
+}
+
+.difficulty {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.difficulty button {
+  padding: 8px 16px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.difficulty button.active {
+  background: #2563eb;
+  border-color: #60a5fa;
+  color: white;
+}
+
+.board {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.board.easy {
+  max-width: 340px;
+}
+
+.board.medium {
+  max-width: 420px;
+}
+
+.board.hard {
+  max-width: 100%;
+}
+
+.board .cell {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  aspect-ratio: 1;
+}
+
+.board.hard .cell {
+  font-size: clamp(8px, 2vw, 13px);
+}
+
+/* Dimensiunea tablei în funcție de dificultate */
+
+.board.easy {
+  max-width: 360px;
+  width: 100%;
+}
+
+.board.medium {
+  max-width: 480px;
+  width: 100%;
+}
+
+.board.hard {
+  max-width: 640px;
+  width: 100%;
+}
+
+/* Pătrățelele se adaptează la dimensiunea tablei */
+
+.board .cell {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+/* Jocul poate ocupa mai mult spațiu */
+
+.game {
+  width: min(95vw, 760px);
+  max-width: 760px;
+}
+
+.multiplayer-game {
+  width: min(95vw, 760px);
+  margin: 30px auto;
+}
+
+.lobby-panel {
+  background: #172033;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+  color: #f8fafc;
+}
+
+.lobby-panel h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.lobby-panel h3 {
+  margin-top: 28px;
+}
+
+.lobby-panel label,
+.difficulty-label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+}
+
+.lobby-input,
+.lobby-panel select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: white;
+  font-size: 16px;
+}
+
+.start-game-button,
+.join-game-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.join-game-button {
+  background: #334155;
+}
+
+.start-game-button:disabled,
+.join-game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.invite-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: #0f172a;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.invite-link span {
+  flex: 1;
+  font-size: 13px;
+}
+
+.invite-link button {
+  padding: 9px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.players-list {
+  display: grid;
+  gap: 10px;
+}
+
+.player-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px;
+  background: #0f172a;
+  border-radius: 8px;
+}
+
+.player-status {
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.room-badge {
+  padding: 8px 12px;
+  background: #1e293b;
+  border-radius: 8px;
+  color: #93c5fd;
+  font-size: 12px;
+}
+
+.waiting-message,
+.lobby-divider {
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 22px;
+}
+
+.multiplayer-error {
+  color: #f87171;
+  margin-top: 16px;
+}
+
+
+.multiplayer-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.multiplayer-layout .board {
+  flex: 1;
+  min-width: 0;
+}
+
+.leaderboard {
+  width: 210px;
+  flex-shrink: 0;
+  padding: 14px;
+  border-radius: 12px;
+  background: #172033;
+  border: 1px solid #334155;
+  color: white;
+}
+
+.leaderboard h3 {
+  font-size: 14px;
+  margin-top: 0;
+}
+
+.leader-player {
+  margin-top: 16px;
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+}
+
+.leader-player span {
+  color: #94a3b8;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #334155;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 20px;
+  transition: width 0.2s;
+}
+
+@media (max-width: 650px) {
+  .multiplayer-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leaderboard {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.final-results {
+  margin-top: 24px;
+}
+
+.final-results .player-item {
+  margin-top: 10px;
+}
+
+.final-results .start-game-button {
+  margin-top: 24px;
+  background: #16a34a;
+  font-size: 16px;
+  padding: 16px;
+}
+
+.final-results .start-game-button:hover {
+  background: #15803d;
+}
+
+.cell.safe-start {
+  background: #facc15;
+  border: 3px solid #f59e0b;
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
+  animation: safePulse 1.2s infinite alternate;
+}
+
+@keyframes safePulse {
+  from {
+    box-shadow: 0 0 5px rgba(250, 204, 21, 0.5);
+  }
+
+  to {
+    box-shadow: 0 0 16px rgba(250, 204, 21, 1);
+  }
+}
+
+
+/* === Responsive board sizing and zoom for multiplayer === */
+
+/* Let the game use enough horizontal space for the board and leaderboard. */
+.multiplayer-game {
+  width: min(96vw, 1100px);
+  max-width: 1100px;
+}
+
+/* Keep the board and leaderboard side by side on larger screens. */
+.multiplayer-layout {
+  width: 100%;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.multiplayer-layout .board {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+/* Each difficulty gets a board size that makes its cells easier to see. */
+.multiplayer-layout .board.easy {
+  width: min(100%, 360px);
+  max-width: 360px;
+}
+
+.multiplayer-layout .board.medium {
+  width: min(100%, 520px);
+  max-width: 520px;
+}
+
+.multiplayer-layout .board.hard {
+  width: min(100%, 640px);
+  max-width: 640px;
+}
+
+.multiplayer-layout .board.medium .cell {
+  font-size: clamp(13px, 1.8vw, 18px);
+}
+
+.multiplayer-layout .board.hard .cell {
+  font-size: clamp(10px, 1.25vw, 15px);
+  border-radius: 4px;
+}
+
+.leaderboard {
+  width: 210px;
+  flex: 0 0 210px;
+}
+
+/* On smaller screens, put the leaderboard under the board.
+   Medium and Hard boards can scroll horizontally instead of shrinking
+   until the squares become too small to use. */
+@media (max-width: 760px) {
+  .multiplayer-game {
+    width: 96vw;
+    max-width: 760px;
+    padding: 16px;
+  }
+
+  .multiplayer-layout {
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .multiplayer-layout .board.easy {
+    width: min(100%, 360px);
+    max-width: 100%;
+    align-self: center;
+  }
+
+  .multiplayer-layout .board.medium {
+    width: 520px;
+    max-width: none;
+    align-self: center;
+  }
+
+  .multiplayer-layout .board.hard {
+    width: 640px;
+    max-width: none;
+    align-self: center;
+  }
+
+  .leaderboard {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}
+
+/* Very narrow phones: keep the board scrollable and prevent page overflow. */
+@media (max-width: 420px) {
+  .multiplayer-game {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .multiplayer-layout .board.medium {
+    width: 500px;
+  }
+
+  .multiplayer-layout .board.hard {
+    width: 600px;
+  }
+}
+
+
+/* Control individual pentru dimensiunea tablei */
+.board-zoom-control {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 18px;
+  padding: 12px 16px;
+  background: #0e1527;
+  border: 1px solid #25304a;
+  border-radius: 12px;
+}
+
+.board-zoom-control label {
+  display: block;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.board-zoom-control label strong {
+  color: #93c5fd;
+  font-variant-numeric: tabular-nums;
+}
+
+.board-zoom-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #93c5fd;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.board-zoom-row input {
+  flex: 1;
+  min-width: 0;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+.board-zoom-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  color: #8290ab;
+  font-size: 10px;
+}
+
+
+/* Controlul de zoom: mic, discret, în colțul din dreapta */
+.board-zoom-control {
+  width: 190px;
+  max-width: 45%;
+  margin: 0 0 10px auto;
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: rgba(14, 21, 39, 0.9);
+}
+
+.board-zoom-control label {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.board-zoom-row {
+  gap: 7px;
+  font-size: 15px;
+}
+
+.board-zoom-labels {
+  margin-top: 2px;
+  font-size: 9px;
+}
+
+@media (max-width: 420px) {
+  .board-zoom-control {
+    width: 165px;
+    max-width: 55%;
+    padding: 6px 8px;
+  }
+}
