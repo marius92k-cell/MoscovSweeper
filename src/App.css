@@ -359,3 +359,15 @@ h3 { color: var(--blue-bright); letter-spacing: 1px; }
   .invite-link button { width: 100%; }
   .game-footer { font-size: 10px; }
 }
+
+/* Retro Arcade – eliminate blue from revealed cells */
+.board .cell.revealed {
+  background: #10091c !important;
+  border-color: #35204f !important;
+  box-shadow: inset 0 0 5px rgba(160, 70, 255, 0.08) !important;
+}
+
+/* Keep revealed numbers crisp */
+.board .cell.revealed span {
+  text-shadow: none;
+}
