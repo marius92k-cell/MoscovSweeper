@@ -371,3 +371,38 @@ h3 { color: var(--blue-bright); letter-spacing: 1px; }
 .board .cell.revealed span {
   text-shadow: none;
 }
+
+/* === RETRO ARCADE: BOARD + FIXED SIDEBAR === */
+
+@media (min-width: 761px) {
+  .board-zoom-control {
+    width: 250px !important;
+    max-width: 250px !important;
+    margin: 0 0 14px auto !important;
+    box-sizing: border-box;
+  }
+
+  .multiplayer-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    align-items: start;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .multiplayer-layout .board {
+    justify-self: center;
+    margin: 0 !important;
+  }
+
+  .multiplayer-layout .leaderboard {
+    position: relative !important;
+    top: auto;
+    right: auto;
+    width: 250px !important;
+    min-width: 250px;
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 5;
+  }
+}
