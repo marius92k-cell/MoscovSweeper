@@ -321,7 +321,7 @@ async function handleRestart() {
           <header className="game-header">
             <div>
               <p className="eyebrow">MULTIPLAYER</p>
-              <h1>Minesweeper</h1>
+              <h1 className="brand-title">MOSCOV <span>SWEEPER</span></h1>
             </div>
             <span className="room-badge">
               ROOM {roomId.toUpperCase()}
@@ -386,7 +386,7 @@ async function handleRestart() {
         <header className="game-header">
           <div>
             <p className="eyebrow">MULTIPLAYER ROOM</p>
-            <h1>Minesweeper</h1>
+            <h1 className="brand-title">MOSCOV <span>SWEEPER</span></h1>
           </div>
           <span className="room-badge">{roomId.toUpperCase()}</span>
         </header>
@@ -585,8 +585,8 @@ async function handleRestart() {
     <main className="game multiplayer-game">
       <header className="game-header">
         <div>
-          <p className="eyebrow">CLASSIC PUZZLE</p>
-          <h1>Minesweeper</h1>
+          <p className="eyebrow">✦ ARCADE MULTIPLAYER EXPERIENCE ✦</p>
+          <h1 className="brand-title">MOSCOV <span>SWEEPER</span></h1>
         </div>
       </header>
 
